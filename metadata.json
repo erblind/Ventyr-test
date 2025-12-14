@@ -1,0 +1,8 @@
+{
+  "name": "Copy of Ventyr",
+  "description": "A futuristic, AI-powered mobile-first event ecosystem for discovering, buying, and reselling tickets.",
+  "requestFramePermissions": [
+    "microphone",
+    "geolocation"
+  ]
+}

@@ -464,7 +464,141 @@ const OnboardingScreen: React.FC<{ setUserRole: (r: UserRole) => void, setView: 
       </div>
     </div>
 );
+// --- PROJECT OVERVIEW SCREEN ---
+const ProjectOverviewScreen: React.FC<{ setView: (v: ViewState) => void, setUserRole: (r: UserRole) => void }> = ({ setView, setUserRole }) => {
+    const features = [
+        { icon: <TicketIcon className="w-6 h-6" />, title: 'Smart Ticketing', description: 'Buy, sell, and manage tickets with built-in resale marketplace' },
+        { icon: <BrainCircuit className="w-6 h-6" />, title: 'AI-Powered', description: 'Gemini AI assistant helps discover events and answers questions' },
+        { icon: <Users className="w-6 h-6" />, title: 'Social Features', description: 'Chat with attendees, follow organizers, and build your network' },
+        { icon: <BarChart3 className="w-6 h-6" />, title: 'Organizer Dashboard', description: 'Full event management with analytics, CRM, and AI marketing tools' },
+        { icon: <Sparkles className="w-6 h-6" />, title: 'Modern UI', description: 'Futuristic mobile-first design with smooth animations' },
+        { icon: <MapIcon className="w-6 h-6" />, title: 'Event Discovery', description: 'TikTok-style vertical swipe feed to discover events' },
+    ];
 
+    return (
+        <div className="min-h-screen bg-dark-bg overflow-y-auto">
+            {/* Hero Section */}
+            <div className="relative h-[60vh] min-h-[500px] flex flex-col items-center justify-center overflow-hidden">
+                <div className="absolute inset-0 z-0">
+                    <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-neon-purple/20 rounded-full blur-[100px] animate-pulse-slow"></div>
+                    <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-neon-blue/10 rounded-full blur-[100px] animate-pulse-slow delay-700"></div>
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-neon-pink/5 rounded-full blur-[120px]"></div>
+                </div>
+
+                <div className="relative z-10 text-center px-6 animate-in fade-in slide-in-from-bottom-5 duration-700">
+                    <div className="inline-block p-5 rounded-3xl bg-white/5 backdrop-blur-xl border border-neon-blue/30 shadow-float animate-float mb-8">
+                        <TicketIcon className="w-20 h-20 text-neon-pink" />
+                    </div>
+                    <h1 className="text-6xl md:text-7xl font-bold tracking-tight mb-4 brand-gradient bg-clip-text text-transparent drop-shadow-sm">Ventyr 3.0</h1>
+                    <p className="text-text-secondary text-xl md:text-2xl mb-2 max-w-2xl mx-auto">AI-Powered Event Ecosystem</p>
+                    <p className="text-text-tertiary text-base md:text-lg max-w-xl mx-auto mb-8">A futuristic, mobile-first platform for discovering, buying, and reselling event tickets — powered by Gemini AI.</p>
+
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                        <Button onClick={() => { setUserRole('USER'); setView(ViewState.DISCOVER); }} variant="primary" className="text-lg h-14 px-8">
+                            Explore Events <ArrowRight className="w-5 h-5 ml-2" />
+                        </Button>
+                        <Button onClick={() => { setUserRole('ORGANIZER'); setView(ViewState.ORGANIZER_DASHBOARD); }} variant="secondary" className="text-lg h-14 px-8">
+                            Organizer Dashboard
+                        </Button>
+                    </div>
+                </div>
+            </div>
+
+            {/* Features Section */}
+            <div className="px-6 py-16 max-w-6xl mx-auto">
+                <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-4">Key Features</h2>
+                <p className="text-text-secondary text-center mb-12 max-w-2xl mx-auto">Everything you need to discover events, manage tickets, and connect with the community.</p>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {features.map((feature, idx) => (
+                        <div
+                            key={idx}
+                            className="bg-dark-surface border border-white/[0.05] rounded-2xl p-6 hover:border-neon-blue/30 transition-all hover:shadow-neon-brand group"
+                        >
+                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-neon-blue/20 to-neon-purple/20 flex items-center justify-center text-neon-blue mb-4 group-hover:scale-110 transition-transform">
+                                {feature.icon}
+                            </div>
+                            <h3 className="text-lg font-bold text-white mb-2">{feature.title}</h3>
+                            <p className="text-text-secondary text-sm">{feature.description}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            {/* Tech Stack Section */}
+            <div className="px-6 py-16 bg-dark-surface/50 border-y border-white/[0.03]">
+                <div className="max-w-4xl mx-auto text-center">
+                    <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Built With Modern Tech</h2>
+                    <p className="text-text-secondary mb-8">Powered by cutting-edge technologies for the best experience.</p>
+
+                    <div className="flex flex-wrap justify-center gap-4">
+                        {['React', 'TypeScript', 'Tailwind CSS', 'Vite', 'Gemini AI', 'Recharts', 'Lucide Icons'].map((tech) => (
+                            <span key={tech} className="px-4 py-2 bg-white/5 border border-white/10 rounded-full text-text-secondary text-sm hover:border-neon-blue/30 hover:text-white transition-all">
+                                {tech}
+                            </span>
+                        ))}
+                    </div>
+                </div>
+            </div>
+
+            {/* User Flows Section */}
+            <div className="px-6 py-16 max-w-6xl mx-auto">
+                <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12">Two Experiences, One Platform</h2>
+
+                <div className="grid md:grid-cols-2 gap-8">
+                    <div
+                        className="bg-dark-surface border border-white/[0.05] rounded-2xl p-8 hover:border-neon-blue/30 transition-all cursor-pointer group"
+                        onClick={() => { setUserRole('USER'); setView(ViewState.DISCOVER); }}
+                    >
+                        <div className="w-16 h-16 rounded-2xl brand-gradient flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <User className="w-8 h-8 text-white" />
+                        </div>
+                        <h3 className="text-2xl font-bold text-white mb-3">Attendee Experience</h3>
+                        <ul className="space-y-3 text-text-secondary">
+                            <li className="flex items-center gap-2"><Check className="w-4 h-4 text-neon-green" /> Discover events with vertical swipe feed</li>
+                            <li className="flex items-center gap-2"><Check className="w-4 h-4 text-neon-green" /> Buy and manage tickets</li>
+                            <li className="flex items-center gap-2"><Check className="w-4 h-4 text-neon-green" /> Resale marketplace for tickets</li>
+                            <li className="flex items-center gap-2"><Check className="w-4 h-4 text-neon-green" /> Chat with attendees and organizers</li>
+                            <li className="flex items-center gap-2"><Check className="w-4 h-4 text-neon-green" /> AI assistant for recommendations</li>
+                        </ul>
+                        <Button variant="ghost" className="mt-6 group-hover:text-neon-blue">
+                            Enter as Attendee <ArrowRight className="w-4 h-4 ml-1" />
+                        </Button>
+                    </div>
+
+                    <div
+                        className="bg-dark-surface border border-white/[0.05] rounded-2xl p-8 hover:border-neon-purple/30 transition-all cursor-pointer group"
+                        onClick={() => { setUserRole('ORGANIZER'); setView(ViewState.ORGANIZER_DASHBOARD); }}
+                    >
+                        <div className="w-16 h-16 rounded-2xl bg-gradient-to-r from-neon-purple to-neon-pink flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <LayoutGrid className="w-8 h-8 text-white" />
+                        </div>
+                        <h3 className="text-2xl font-bold text-white mb-3">Organizer Dashboard</h3>
+                        <ul className="space-y-3 text-text-secondary">
+                            <li className="flex items-center gap-2"><Check className="w-4 h-4 text-neon-green" /> Full event management suite</li>
+                            <li className="flex items-center gap-2"><Check className="w-4 h-4 text-neon-green" /> Real-time analytics and insights</li>
+                            <li className="flex items-center gap-2"><Check className="w-4 h-4 text-neon-green" /> CRM with lead tracking</li>
+                            <li className="flex items-center gap-2"><Check className="w-4 h-4 text-neon-green" /> AI-powered marketing strategies</li>
+                            <li className="flex items-center gap-2"><Check className="w-4 h-4 text-neon-green" /> Team collaboration tools</li>
+                        </ul>
+                        <Button variant="ghost" className="mt-6 group-hover:text-neon-purple">
+                            Enter as Organizer <ArrowRight className="w-4 h-4 ml-1" />
+                        </Button>
+                    </div>
+                </div>
+            </div>
+
+            {/* Footer CTA */}
+            <div className="px-6 py-20 text-center bg-gradient-to-b from-transparent to-dark-surface/50">
+                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Ready to Experience the Future?</h2>
+                <p className="text-text-secondary mb-8 max-w-xl mx-auto">Join Ventyr and discover a new way to experience live events.</p>
+                <Button onClick={() => { setUserRole('USER'); setView(ViewState.DISCOVER); }} variant="primary" className="text-lg h-14 px-10">
+                    Get Started <Sparkles className="w-5 h-5 ml-2" />
+                </Button>
+            </div>
+        </div>
+    );
+};
 // --- NEW ORGANIZER PROFILE VIEW ---
 const OrganizerProfileView: React.FC<{ organizer: Organizer, events: Event[], onBack: () => void }> = ({ organizer, events, onBack }) => {
     const orgEvents = events.filter(e => e.organizer.id === organizer.id);
@@ -1683,6 +1817,7 @@ const App: React.FC = () => {
           qrCodeData: `ticket-${eventId}-${Date.now()}`,
           pricePaid: price
       };
+
       setMyTickets(prev => [...prev, newTicket]);
       addToast({ type: 'success', message: 'Ticket purchased successfully!' });
       setViewState(ViewState.MY_TICKETS);

@@ -1778,6 +1778,9 @@ const VerticalSnapEventCard: React.FC<{
 // --- MAIN APP COMPONENT ---
 
 const App: React.FC = () => {
+    const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [user, setUser] = React.useState<any>(null);
   const [viewState, setViewState] = useState<ViewState>(ViewState.ONBOARDING);
   const [userRole, setUserRole] = useState<UserRole>('USER');
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
@@ -1787,6 +1790,58 @@ const App: React.FC = () => {
   const [likedEvents, setLikedEvents] = useState<Event[]>([]);
   const [selectedOrganizer, setSelectedOrganizer] = useState<Organizer | null>(null);
   const [selectedChat, setSelectedChat] = useState<ChatConversation | null>(null);
+
+   React.useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      setUser(data.session?.user ?? null);
+    });
+
+    const { data: listener } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        setUser(session?.user ?? null);
+      }
+    );
+
+    return () => {
+      listener.subscription.unsubscribe();
+        // --------------------
+  // AUTH FUNCTIONS
+  // --------------------
+  const handleLogin = async () => {
+    if (!email || !password) {
+      addToast({ type: "error", message: "Please enter email and password" });
+      return;
+    }
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      addToast({ type: "error", message: error.message });
+    } else {
+      addToast({ type: "success", message: "Logged in successfully" });
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+    });
+
+    if (error) {
+      addToast({ type: "error", message: error.message });
+    }
+  };
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    addToast({ type: "info", message: "Logged out" });
+  };
+
+    };
+  }, []);
 
   const addToast = (toast: Omit<ToastMessage, 'id'>) => {
     const id = Date.now().toString();

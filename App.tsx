@@ -13,6 +13,8 @@ import { ViewState, Event, Ticket, UserRole, Person, ChatConversation, ChatMessa
 import { GlassCard, Button, Input, Badge, ToastContainer, Modal } from './components/UI';
 import { ChatAssistant } from './components/ChatAssistant';
 import { generateEventStrategy } from './services/geminiService';
+import React, { useState, useEffect } from "react";
+import { createClient } from "@supabase/supabase-js";
 
 // --- ENUMS & TYPES EXTENSION ---
 
